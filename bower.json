@@ -1,0 +1,20 @@
+{
+  "name": "pilger-app",
+  "description": "<a><img src=\"http://res.cloudinary.com/dt4qeehms/image/upload/v1494509335/logo_njvnrz.png\" height=\"300\" align=\"right\"></a>",
+  "main": "gulpfile.js",
+  "license": "ISC",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "js/vendor/",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.3.1",
+    "bootstrap": "^4.0.0"
+  }
+}

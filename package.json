@@ -1,26 +1,33 @@
 {
   "name": "pilger-app",
   "version": "1.0.0",
-  "description": "",
-  "main": "server.js",
+  "description": "<a><img src=\"http://res.cloudinary.com/dt4qeehms/image/upload/v1494509335/logo_njvnrz.png\" height=\"300\" align=\"right\"></a>",
+  "main": "gulpfile.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon app.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "csa",
+  "repository": {
+    "type": "git",
+    "url": "https://pilger-deployment-master@pilger-app.scm.azurewebsites.net:443/pilger-app.git"
+  },
+  "author": "",
   "license": "ISC",
-  "dependencies": {
-    "express": "^4.16.2",
-    "express-handlebars": "^3.0.0",
-    "nodemon": "^1.14.12",
-    "request": "^2.83.0",
-    "request-promise": "^4.2.2"
-  },
   "devDependencies": {
-    "eslint": "^4.16.0",
-    "eslint-config-airbnb": "^16.1.0",
-    "eslint-plugin-import": "^2.8.0",
-    "eslint-plugin-jsx-a11y": "^6.0.3",
-    "eslint-plugin-react": "^7.6.1"
+    "beeper": "^1.1.1",
+    "browser-sync": "^2.23.6",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^5.0.0",
+    "gulp-cache": "^1.0.2",
+    "gulp-clean-css": "^3.9.3",
+    "gulp-concat": "^2.6.1",
+    "gulp-imagemin": "^4.1.0",
+    "gulp-notify": "^3.2.0",
+    "gulp-plumber": "^1.2.0",
+    "gulp-pug": "^3.3.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^3.1.0",
+    "gulp-sourcemaps": "^2.6.4",
+    "gulp-uglify": "^3.0.0",
+    "gulp-util": "^3.0.8"
   }
 }
