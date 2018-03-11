@@ -16,6 +16,7 @@ var sourcemaps = require('gulp-sourcemaps');
 var uglify = require('gulp-uglify');
 // sudo npm install gulp-uglify browser-sync gulp-plumber gulp-autoprefixer gulp-sass gulp-pug gulp-imagemin gulp-cache gulp-clean-css gulp-sourcemaps gulp-concat beeper gulp-util gulp-rename gulp-notify --save-dev
 var babel = require('gulp-babel');
+var connect = require('gulp-connect');
 var jsVendorFiles = [];             // Holds the js vendor files to be concatenated
 var myJsFiles = ['js/*.js'];    // Holds the js files to be concatenated
 var fs = require('fs');  // ExistsSync var to check if font directory patch exist
@@ -185,4 +186,12 @@ gulp.task('watch', function () {
   });
 
   gulp.watch(['build/**'], browserSync.reload);
+});
+
+gulp.task('serveprod', function() {
+  connect.server({
+    root: ["build"],
+    port: process.env.PORT || 5000, // localhost:5000
+    livereload: false
+  });
 });

@@ -24,6 +24,7 @@
     "gulp-cache": "^1.0.2",
     "gulp-clean-css": "^3.9.3",
     "gulp-concat": "^2.6.1",
+    "gulp-connect": "^2.0.6",
     "gulp-imagemin": "^4.1.0",
     "gulp-notify": "^3.2.0",
     "gulp-plumber": "^1.2.0",
