@@ -5,7 +5,7 @@
   "main": "gulpfile.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "gulp watch"
+    "start": "gulp setup watch"
   },
   "repository": {
     "type": "git",
@@ -13,7 +13,7 @@
   },
   "author": "",
   "license": "ISC",
-  "devDependencies": {
+  "dependencies": {
     "babel-core": "^6.26.0",
     "babel-preset-latest": "^6.24.1",
     "beeper": "^1.1.1",
