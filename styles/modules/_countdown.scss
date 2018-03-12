@@ -10,6 +10,7 @@
 		}
 		.counter {
 			opacity: 0;
+			width: 70px;
 		}
 	}
 }
@@ -28,6 +29,11 @@
 	text-align: left;
 	transition: opacity 2s;
 	opacity: initial;
+}
+
+.plane-img {
+	width: 70px;
+	height: auto;
 }
 
 @media (min-width: 426px) {

@@ -5,8 +5,10 @@ const now = new Date();
 countDownDate.setSeconds(countDownDate.getSeconds() + 7);
 
 // Update the count down every 1 second
-if(countDownDate > now)
-{
+if(countDownDate < now) {
+  $('.container').addClass('timeUp');
+  $('.main-page').addClass('live');
+} else {
   const x = setInterval(function() {
     // Get todays date and time
     const now = new Date().getTime();
@@ -37,7 +39,7 @@ if(countDownDate > now)
     if (distance < 0) {
       clearInterval(x);
       $('.container').addClass('timeUp');
-      $('#countdown').text('Auf gehts!');
+      $('#countdown').html('<img src=\'/img/plane.svg\' class=\'plane-img\'>');
       $('.main-page').addClass('live');
     }
   }, 1000);
