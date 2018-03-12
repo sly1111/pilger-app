@@ -1,8 +1,6 @@
 // Set the date we're counting down to
-//const countDownDate = new Date('Apr 21, 2018 11:50:00').getTime();
-const countDownDate = new Date();
+const countDownDate = new Date('Apr 21, 2018 11:50:00').getTime();
 const now = new Date();
-countDownDate.setSeconds(countDownDate.getSeconds() + 7);
 
 // Update the count down every 1 second
 if(countDownDate < now) {
