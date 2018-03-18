@@ -1,32 +1,13 @@
 body {
 	text-align:center;
 	background-color: #0f2b58;
+	margin: 0;
 }
 
-.container {
-	margin-top: 40px;
-}
-
-.pic {
-	width: 80%;
-}
-
-.counter {
-	color: white;
-	font-size: 4em;
-	font-family: 'Slabo 27px', serif;
-	margin: 15px auto;
-	width: 283px;
-	text-align: left;
-}
-
-@media (min-width: 426px) {
-	.pic {
-		max-width: 400px;
+.main-page {
+	opacity: 0;
+	transition: opacity 2s;
+	&.live {
+		opacity: initial;
 	}
-
-	.counter {
-		font-size: 5em;
-		width: 364px;
-	}	
 }

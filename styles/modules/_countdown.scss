@@ -1,0 +1,55 @@
+.container {
+	margin-top: 40px;
+	transition: text-align 2s;
+	&.timeUp {
+		margin: 10px;
+		height: 30px;
+		.pic {
+			width: 30px;
+			height: auto;
+		}
+		.counter {
+			opacity: 0;
+			width: 70px;
+		}
+	}
+}
+
+.pic {
+	width: 80%;
+	transition: max-width 2s, width 2s;
+}
+
+.counter {
+	color: white;
+	font-size: 4em;
+	font-family: 'Slabo 27px', serif;
+	margin: 15px auto;
+	width: 283px;
+	text-align: left;
+	transition: opacity 2s;
+	opacity: initial;
+}
+
+.plane-img {
+	width: 70px;
+	height: auto;
+}
+
+@media (min-width: 426px) {
+	.container {
+		&.timeUp {
+			.pic {
+				max-width: 30px;
+			}
+		}
+	}
+	.pic {
+		max-width: 400px;
+	}
+
+	.counter {
+		font-size: 5em;
+		width: 364px;
+	}	
+}
