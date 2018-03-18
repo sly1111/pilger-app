@@ -2,9 +2,10 @@
 html(lang="en")
   include templates/head
   body
-    div(class="container")
+    div(class="countdown")
       img(class="pic" src='/img/muschel.svg')
       h2(id="countdown" class="counter")
-    div(class="main-page") Main Content
+    div(class="main-page")
+      include templates/carousel
 
   include templates/footer

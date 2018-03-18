@@ -1,4 +1,4 @@
-.container {
+.countdown {
 	margin-top: 40px;
 	transition: text-align 2s;
 	&.timeUp {
@@ -37,7 +37,7 @@
 }
 
 @media (min-width: 426px) {
-	.container {
+	.countdown {
 		&.timeUp {
 			.pic {
 				max-width: 30px;
