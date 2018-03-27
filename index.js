@@ -5,12 +5,12 @@ var fs = require('fs');
 var readline = require('readline');
 var google = require('googleapis');
 var googleAuth = require('google-auth-library');
+const os = require('os');
 
 // If modifying these scopes, delete your previously saved credentials
 // at ~/.credentials/drive-nodejs-quickstart.json
 var SCOPES = ['https://www.googleapis.com/auth/drive.readonly'];
-var TOKEN_DIR = (process.env.HOME || process.env.HOMEPATH ||
-    process.env.USERPROFILE) + '/.credentials/';
+var TOKEN_DIR = (path.resolve(__dirname)) + '/.credentials/';
 var TOKEN_PATH = TOKEN_DIR + 'drive-nodejs-quickstart.json';
 
 express()
@@ -19,6 +19,9 @@ express()
   .get('/test', (req, res) => console.log('test'))
   .get('/copyImages', (req, res) =>
     getImages())
+  .get('/user', (req, res) =>
+    console.log(os.homedir())
+  )
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
 function getImages() {
