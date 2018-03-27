@@ -131,8 +131,9 @@ function listFiles(auth) {
   var service = google.drive('v3');
   service.files.list({
     auth: auth,
-    pageSize: 10,
-    q: "mimeType='image/jpeg'",
+    pageSize: 1,
+    orderBy: 'createdTime desc',
+    q: "mimeType='image/jpeg' and name contains 'public'",
     fields: "nextPageToken, files(id, name)"
   }, function(err, response) {
     if (err) {
@@ -147,6 +148,22 @@ function listFiles(auth) {
       for (var i = 0; i < files.length; i++) {
         var file = files[i];
         console.log('%s (%s)', file.name, file.id);
+        var fileId = 'file.id';
+        var dest = fs.createWriteStream('build/img/live/' + file.name);
+        service.files.get({
+          fileId: file.id,
+          alt: 'media',
+          auth: auth
+        }, {
+          responseType: 'stream'
+        },function(err, response){
+          response.data.on('error', err => {
+            console.log('error');
+          }).on('end', ()=>{
+              console.log('done');
+          })
+          .pipe(dest);
+        });
       }
     }
   });
