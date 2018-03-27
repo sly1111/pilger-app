@@ -4,7 +4,6 @@ const PORT = process.env.PORT || 5000
 var fs = require('fs');
 var readline = require('readline');
 var google = require('googleapis');
-var googleAuth = require('google-auth-library');
 const os = require('os');
 
 // If modifying these scopes, delete your previously saved credentials
@@ -12,6 +11,16 @@ const os = require('os');
 var SCOPES = ['https://www.googleapis.com/auth/drive.readonly'];
 var TOKEN_DIR = (path.resolve(__dirname)) + '/.credentials/';
 var TOKEN_PATH = TOKEN_DIR + 'drive-nodejs-quickstart.json';
+
+// Load client secrets from a local file.
+fs.readFile('client_secret.json', function processClientSecrets(err, content) {
+  if (err) {
+    console.log('Error loading client secret file: ' + err);
+    return;
+  }
+  // Authorize a client with the loaded credentials, then call the Drive API.
+  authorize(JSON.parse(content), listFiles);
+});
 
 express()
   .use(express.static(path.join(__dirname, 'build')))
@@ -48,8 +57,9 @@ function authorize(credentials, callback) {
   var clientSecret = credentials.installed.client_secret;
   var clientId = credentials.installed.client_id;
   var redirectUrl = credentials.installed.redirect_uris[0];
-  var auth = new googleAuth();
-  var oauth2Client = new auth.OAuth2(clientId, clientSecret, redirectUrl);
+
+  var OAuth2 = google.auth.OAuth2;
+  var oauth2Client = new OAuth2(clientId, clientSecret, redirectUrl);
 
   // Check if we have previously stored a token.
   fs.readFile(TOKEN_PATH, function(err, token) {
@@ -94,6 +104,7 @@ function getNewToken(oauth2Client, callback) {
   });
 }
 
+
 /**
  * Store token to disk be used in later program executions.
  *
@@ -119,22 +130,23 @@ function storeToken(token) {
 function listFiles(auth) {
   var service = google.drive('v3');
   service.files.list({
-    pageSize: 50,
-    auth: auth
+    auth: auth,
+    pageSize: 10,
+    q: "mimeType='image/jpeg'",
+    fields: "nextPageToken, files(id, name)"
   }, function(err, response) {
     if (err) {
       console.log('The API returned an error: ' + err);
       return;
     }
-    var files = response.files;
+    var files = response.data.files;
     if (files.length == 0) {
       console.log('No files found.');
     } else {
-      console.log('Files:');
-      console.log(files.length);
+      console.log('\nFiles:');
       for (var i = 0; i < files.length; i++) {
         var file = files[i];
-        //console.log('%s (%s)', file.name, file.id);
+        console.log('%s (%s)', file.name, file.id);
       }
     }
   });
