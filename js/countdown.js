@@ -1,5 +1,5 @@
 // Set the date we're counting down to
-// const countDownDate = new Date('Mar 18, 2018 17:11:00').getTime();
+//const countDownDate = new Date('Mar 18, 2018 17:11:00').getTime();
 const countDownDate = new Date('Apr 21, 2018 11:50:00').getTime();
 const now = new Date();
 
@@ -7,6 +7,7 @@ const now = new Date();
 if(countDownDate < now) {
   $('.countdown').addClass('timeUp');
   $('.main-page').addClass('live');
+  $('.stickman-container').addClass('hidden');
 } else {
   const x = setInterval(function() {
     // Get todays date and time

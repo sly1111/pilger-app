@@ -36,7 +36,8 @@
     "gulp-sourcemaps": "^2.6.4",
     "gulp-uglify": "^3.0.0",
     "gulp-util": "^3.0.8",
-    "pug": "~2.0.0-beta11",
-    "nodemon": "^1.17.2"
+    "mime-types": "^2.1.18",
+    "nodemon": "^1.17.2",
+    "pug": "~2.0.0-beta11"
   }
 }
