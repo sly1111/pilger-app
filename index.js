@@ -9,7 +9,7 @@ app.set('view engine', 'pug');
 app.use(express.static('build'));
 app.get('/', (req, res) => res.render('templates/index'));
 app.set('port', process.env.PORT || 8080);
-app.get('/copyImages', (req, res) => google.getImages());
+//app.get('/copyImages', (req, res) => google.getImages());
 app.listen(app.get('port'), () =>
   console.log(`Listening on ${app.get('port')}`)
 );
