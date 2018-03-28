@@ -17,7 +17,7 @@ app.set('view engine', 'pug');
 app.use(express.static('build'));
 app.get('/', (req, res) => res.render('templates/index'));
 app.set('port', process.env.PORT || 8080);
-app.get('/copyImages', (req, res) => getImages());
+//app.get('/copyImages', (req, res) => getImages());
 app.listen(app.get('port'), () => console.log(`Listening on ${ app.get('port') }`));
 function getImages() {
   // Load client secrets from a local file.
