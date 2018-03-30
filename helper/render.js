@@ -7,7 +7,7 @@ function getFileNames(res) {
         res.status(500).send(error);
         return;
     }
-    res.render('templates/index', {"files": data});
+    res.render('templates/index', {"files": data.reverse()});
   });
 }
 
