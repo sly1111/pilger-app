@@ -15,3 +15,11 @@ body {
 .hidden {
 	display: none;
 }
+
+.link {
+	color: white;
+	&:hover {
+		text-decoration: none;
+    	color: grey;
+	}
+}

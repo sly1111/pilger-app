@@ -8,6 +8,9 @@ html(lang="en")
       img(class="pic" src='/img/muschel.svg')
       h2(id="countdown" class="counter")
     div(class="main-page")
-      include carousel
+      if page == "gallery"
+        include gallery
+      else if page == "carousel"
+        include carousel
 
   include footer
