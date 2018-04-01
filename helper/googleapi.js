@@ -156,4 +156,16 @@ function listFiles(auth) {
   );
 }
 
-module.exports = { getImages };
+function removeImages() { 
+  fs.readdir(__dirname + '/../build/img/live', (err, files) => {
+    if (err) throw err;
+  
+    for (const file of files) {
+      fs.unlink(path.join(__dirname + '/../build/img/live', file), err => {
+        if (err) throw err;
+      });
+    }
+  });
+}
+
+module.exports = { removeImages, getImages };
