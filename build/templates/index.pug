@@ -12,5 +12,6 @@ html(lang="en")
         include gallery
       else if page == "carousel"
         include carousel
-
+        each activity, index in stravaData
+          p= activity
   include footer

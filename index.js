@@ -10,7 +10,11 @@ const app = express();
 app.set('views', path.join(__dirname, 'build'));
 app.set('view engine', 'pug');
 app.use(express.static('build'));
-app.get('/', (req, res) => render.getPage(res, 'carousel'));
+app.get('/', async (req, res) =>{
+  const data = await strava.getActivities();
+  console.log('1');
+  data.then(render.getPage(res, 'carousel', data));
+});
 app.get('/gallery', (req, res) => render.getPage(res, 'gallery'));
 app.get('/s4wFG0bQmRvQREvb1PUW', (req, res) => google.removeImages());
 app.set('port', process.env.PORT || 8080);
