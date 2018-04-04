@@ -18,5 +18,5 @@ console.log(`Listening on ${app.get('port')}`)
 );
 
 cron.schedule('* * * * *', function(){
-  //google.getImages();
+  google.getImages();
 });
