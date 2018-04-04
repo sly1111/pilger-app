@@ -1,5 +1,5 @@
 // Set the date we're counting down to
-//const countDownDate = new Date('Mar 18, 2018 17:11:00').getTime();
+//const countDownDate = new Date('Apr 1, 2018 15:40:00').getTime();
 const countDownDate = new Date('Apr 21, 2018 11:50:00').getTime();
 const now = new Date();
 
@@ -9,6 +9,7 @@ if(countDownDate < now) {
   $('.main-page').addClass('live');
   $('.stickman-container').addClass('hidden');
 } else {
+  $('.carousel').addClass('hidden');
   const x = setInterval(function() {
     // Get todays date and time
     const now = new Date().getTime();
@@ -38,6 +39,8 @@ if(countDownDate < now) {
     // If the count down is finished, write some text
     if (distance < 0) {
       clearInterval(x);
+      $('.carousel').removeClass('hidden');
+      $('.stickman-container').addClass('hidden');
       $('.countdown').addClass('timeUp');
       $('#countdown').html('<img src=\'/img/plane.svg\' class=\'plane-img\'>');
       $('.main-page').addClass('live');

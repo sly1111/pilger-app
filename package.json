@@ -37,6 +37,7 @@
     "gulp-uglify": "^3.0.0",
     "gulp-util": "^3.0.8",
     "mime-types": "^2.1.18",
+    "node-cron": "^1.2.1",
     "nodemon": "^1.17.2",
     "pug": "~2.0.0-beta11",
     "strava-v3": "^1.14.0"
