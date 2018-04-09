@@ -5,13 +5,13 @@ html(lang="en")
     marquee(class="stickman-container" direction="right" scrollamount="3")
       img(class="stickman" src='/img/transparent.gif')
     div(class="countdown")
-      img(class="pic" src='/img/muschel.svg')
+      a(href="/")
+        img(class="pic" src='/img/muschel.svg')
       h2(id="countdown" class="counter")
     div(class="main-page")
       if page == "gallery"
         include gallery
       else if page == "home"
         include carousel
-        each activity, index in stravaData
-          h1=activity.name
+        include activities
   include footer
