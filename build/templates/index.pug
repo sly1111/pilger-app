@@ -10,8 +10,8 @@ html(lang="en")
     div(class="main-page")
       if page == "gallery"
         include gallery
-      else if page == "carousel"
+      else if page == "home"
         include carousel
         each activity, index in stravaData
-          p= activity
+          h1=activity.name
   include footer

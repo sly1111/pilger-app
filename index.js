@@ -4,17 +4,14 @@ const google = require('./helper/googleapi');
 const strava = require('./helper/stravaapi');
 const render = require('./helper/render');
 const cron = require('node-cron');
+const fs = require('fs');
 
 //express setup
 const app = express();
 app.set('views', path.join(__dirname, 'build'));
 app.set('view engine', 'pug');
 app.use(express.static('build'));
-app.get('/', async (req, res) =>{
-  const data = await strava.getActivities();
-  console.log('1');
-  data.then(render.getPage(res, 'carousel', data));
-});
+app.get('/', (req, res) => render.getPage(res, 'home'));
 app.get('/gallery', (req, res) => render.getPage(res, 'gallery'));
 app.get('/s4wFG0bQmRvQREvb1PUW', (req, res) => google.removeImages());
 app.set('port', process.env.PORT || 8080);
@@ -24,4 +21,15 @@ console.log(`Listening on ${app.get('port')}`)
 
 cron.schedule('* * * * *', function(){
   //google.getImages();
+});
+
+cron.schedule('* * * * *', function(){
+  const data = async () => {
+    //let activities = await strava.getActivities();
+    return JSON.stringify(activities);
+  }
+  data().then((activities) => {
+    fs.writeFile('strava.json', activities);
+    console.log(activities);
+  })
 });

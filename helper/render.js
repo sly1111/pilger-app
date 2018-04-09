@@ -3,14 +3,14 @@ const path = require('path');
 const strava = require('../helper/stravaapi');
 
 async function getPage(res, page) {
-  const stravaData = await strava.getActivities();
-  console.log(stravaData);
+  let stravaJSON = fs.readFileSync(__dirname + '/../strava.json');
+  stravaJSON = JSON.parse(stravaJSON);
   fs.readdir(__dirname + '/../build/img/live', function(error, data){
     if (error) {
         res.status(500).send(error);
         return;
     }
-    res.render('templates/index', {'files': data.reverse(), 'page': page, 'stravaData': stravaData});
+    res.render('templates/index', {'files': data.reverse(), 'page': page, 'stravaData': stravaJSON});
   });
 }
 
