@@ -124,10 +124,9 @@ function listFiles(auth) {
       if (files.length == 0) {
         console.log('No files found.');
       } else {
-        console.log('\nFiles:');
         for (let i = 0; i < files.length; i++) {
           let file = files[i];
-          console.log('%s (%s)', file.name, file.id);
+          console.log('write image %s (%s)', file.name, file.id);
           let fileId = 'file.id';
           let dest = fs.createWriteStream('build/img/live/' + file.name);
           service.files.get(

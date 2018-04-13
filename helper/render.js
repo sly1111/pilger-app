@@ -10,7 +10,7 @@ async function getPage(res, page) {
         res.status(500).send(error);
         return;
     }
-    res.render('templates/index', {'files': data.reverse(), 'page': page, 'stravaData': stravaJSON});
+    res.render('templates/index', {'files': data.reverse(), 'page': page, 'stravaData': stravaJSON.reverse()});
   });
 }
 

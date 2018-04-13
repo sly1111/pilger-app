@@ -1,83 +1,41 @@
 div(class="activities-container")
     h1(class="activities-head") Etappen
-    div(class="activity-single")
-        div(class="activity-title") 1. Etappe
-        a(href="#")
-            img(src="/img/route1.png", alt="route")
-        div(class="activity-info-container")
-            div(class="activity-box")
-                div(class="activity-info") 
-                    i(class="fas fa-road activity-icon")
-                    div(class="activity-content") 23,7
-                    div(class="activity-unit") km
-            div(class="activity-box")
-                div(class="activity-info")
-                    i(class="fas fa-chart-area activity-icon")
-                    div(class="activity-content") 1054
-                    div(class="activity-unit") m
-            div(class="activity-box")
-                div(class="activity-info")
-                    i(class="fas fa-clock activity-icon")
-                    div(class="activity-content") 6:34
-                    div(class="activity-unit") h
-            div(class="activity-box")
-                div(class="activity-info")
-                    i(class="fas fa-tachometer-alt activity-icon")
-                    div(class="activity-content") 16:52
-                    div(class="activity-unit") min/km
-        div(class="activity-more")
-            a(href="#") more &gt;
-    div(class="activity-single")
-        div(class="activity-title") 2. Etappe
-        a(href="#")
-            img(src="/img/route2.png", alt="route")
-        div(class="activity-info-container")
-            div(class="activity-box")
-                div(class="activity-info") 
-                    i(class="fas fa-road activity-icon")
-                    div(class="activity-content") 18,9
-                    div(class="activity-unit") km
-            div(class="activity-box")
-                div(class="activity-info")
-                    i(class="fas fa-chart-area activity-icon")
-                    div(class="activity-content") 345
-                    div(class="activity-unit") m
-            div(class="activity-box")
-                div(class="activity-info")
-                    i(class="fas fa-clock activity-icon")
-                    div(class="activity-content") 4:20
-                    div(class="activity-unit") h
-            div(class="activity-box")
-                div(class="activity-info")
-                    i(class="fas fa-tachometer-alt activity-icon")
-                    div(class="activity-content") 12:17
-                    div(class="activity-unit") min/km
-        div(class="activity-more")
-            a(href="#") more &gt;
-    div(class="activity-single")
-        div(class="activity-title") 3. Etappe
-        a(href="#")
-            img(src="/img/route3.png", alt="route")
-        div(class="activity-info-container")
-            div(class="activity-box")
-                div(class="activity-info") 
-                    i(class="fas fa-road activity-icon")
-                    div(class="activity-content") 31,5
-                    div(class="activity-unit") km
-            div(class="activity-box")
-                div(class="activity-info")
-                    i(class="fas fa-chart-area activity-icon")
-                    div(class="activity-content") 984
-                    div(class="activity-unit") m
-            div(class="activity-box")
-                div(class="activity-info")
-                    i(class="fas fa-clock activity-icon")
-                    div(class="activity-content") 5:57
-                    div(class="activity-unit") h
-            div(class="activity-box")
-                div(class="activity-info")
-                    i(class="fas fa-tachometer-alt activity-icon")
-                    div(class="activity-content") 9:13
-                    div(class="activity-unit") min/km
-        div(class="activity-more")
-            a(href="#") more &gt;
+    each activity, index in stravaData
+        - var distance = Number((activity.distance/1000).toFixed(2)) + '';
+        - var elevation = Number((activity.total_elevation_gain).toFixed(0)) + '';
+        - var time = parseInt(activity.moving_time, 10);
+        - var hours   = Math.floor(time / 3600);
+        - var minutes = Math.floor((time - (hours * 3600)) / 60);
+        - if (minutes < 10) {minutes = "0"+minutes;}
+        - var tempo = (time) / parseInt(distance);
+        - var tempoMin = Math.floor(tempo / 60);
+        - var tempoSek = Math.floor(tempo - (tempoMin * 60));
+        - if (tempoSek < 10) {tempoSek = "0"+tempoSek;}
+        - distance = distance.replace('.', ',');
+        div(class="activity-single")
+            div(class="activity-title")=activity.name
+            a(href="#")
+                img(src="/img/route1.png", alt="route")
+            div(class="activity-info-container")
+                div(class="activity-box")
+                    div(class="activity-info") 
+                        i(class="fas fa-road activity-icon")
+                        div(class="activity-content")=distance
+                        div(class="activity-unit") km
+                div(class="activity-box")
+                    div(class="activity-info")
+                        i(class="fas fa-chart-area activity-icon")
+                        div(class="activity-content")=elevation
+                        div(class="activity-unit") m
+                div(class="activity-box")
+                    div(class="activity-info")
+                        i(class="fas fa-clock activity-icon")
+                        div(class="activity-content")=hours + ':' + minutes
+                        div(class="activity-unit") h
+                div(class="activity-box")
+                    div(class="activity-info")
+                        i(class="fas fa-tachometer-alt activity-icon")
+                        div(class="activity-content")=tempoMin + ':' + tempoSek
+                        div(class="activity-unit") min/km
+            div(class="activity-more")
+                a(href="https://www.strava.com/activities/" + activity.id target="blank") more &gt;

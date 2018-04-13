@@ -20,16 +20,16 @@ console.log(`Listening on ${app.get('port')}`)
 );
 
 cron.schedule('* * * * *', function(){
-  //google.getImages();
+  google.getImages();
 });
 
-cron.schedule('* * * * *', function(){
+cron.schedule('15 * * * *', function(){
   const data = async () => {
-    //let activities = await strava.getActivities();
+    let activities = await strava.getActivities();
     return JSON.stringify(activities);
   }
   data().then((activities) => {
     fs.writeFile('strava.json', activities);
-    console.log(activities);
+    console.log('write Strava Activities');
   })
 });
