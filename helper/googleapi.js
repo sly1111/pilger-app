@@ -1,25 +1,20 @@
-const express = require('express');
-const path = require('path');
-const google = require('./helper/googleapi');
-const strava = require('./helper/stravaapi');
-const render = require('./helper/render');
-const cron = require('node-cron');
 const fs = require('fs');
+const readline = require('readline');
+const google = require('googleapis');
+const path = require('path');
 
-//express setup
-const app = express();
-app.set('views', path.join(__dirname, 'build'));
-app.set('view engine', 'pug');
-app.use(express.static('build'));
-app.get('/', (req, res) => render.getPage(res, 'home'));
-app.get('/gallery', (req, res) => render.getPage(res, 'gallery'));
-app.get('/s4wFG0bQmRvQREvb1PUW', (req, res) => google.removeImages());
-app.set('port', process.env.PORT || 8080);
-//app.get('/copyImages', (req, res) => getImages());
-app.listen(app.get('port'), () => console.log(`Listening on ${ app.get('port') }`));
+// If modifying these scopes, delete your previously saved credentials
+// at ~/.credentials/drive-nodejs-quickstart.json
+const SCOPES = ['https://www.googleapis.com/auth/drive.readonly'];
+const TOKEN_DIR = path.resolve(__dirname) + '/../.credentials/';
+const TOKEN_PATH = TOKEN_DIR + 'drive-nodejs-quickstart.json';
+
 function getImages() {
   // Load client secrets from a local file.
-  fs.readFile('client_secret.json', function processClientSecrets(err, content) {
+  fs.readFile('client_secret.json', function processClientSecrets(
+    err,
+    content
+  ) {
     if (err) {
       console.log('Error loading client secret file: ' + err);
       return;
@@ -88,7 +83,6 @@ function getNewToken(oauth2Client, callback) {
   });
 }
 
-
 /**
  * Store token to disk be used in later program executions.
  *
@@ -106,17 +100,71 @@ function storeToken(token) {
   console.log('Token stored to ' + TOKEN_PATH);
 }
 
-cron.schedule('* * * * *', function(){
-  google.getImages();
-});
+/**
+ * Lists the names and IDs of up to 10 files.
+ *
+ * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
+ */
+function listFiles(auth) {
+  const service = google.drive('v3');
+  service.files.list(
+    {
+      auth: auth,
+      pageSize: 1,
+      orderBy: 'createdTime desc',
+      q: "mimeType='image/jpeg' and name contains 'public'",
+      fields: 'nextPageToken, files(id, name)'
+    },
+    function(err, response) {
+      if (err) {
+        console.log('The API returned an error: ' + err);
+        return;
+      }
+      const files = response.data.files;
+      if (files.length == 0) {
+        console.log('No files found.');
+      } else {
+        for (let i = 0; i < files.length; i++) {
+          let file = files[i];
+          console.log('write image %s (%s)', file.name, file.id);
+          let fileId = 'file.id';
+          let dest = fs.createWriteStream('build/img/live/' + file.name);
+          service.files.get(
+            {
+              fileId: file.id,
+              alt: 'media',
+              auth: auth
+            },
+            {
+              responseType: 'stream'
+            },
+            function(err, response) {
+              response.data
+                .on('error', err => {
+                  console.log('error');
+                })
+                .on('end', () => {
+                  console.log('done');
+                })
+                .pipe(dest);
+            }
+          );
+        }
+      }
+    }
+  );
+}
 
-cron.schedule('15 * * * *', function(){
-  const data = async () => {
-    let activities = await strava.getActivities();
-    return JSON.stringify(activities);
-  }
-  data().then((activities) => {
-    fs.writeFile('strava.json', activities);
-    console.log('write Strava Activities');
-  })
-});
+function removeImages() { 
+  fs.readdir(__dirname + '/../build/img/live', (err, files) => {
+    if (err) throw err;
+  
+    for (const file of files) {
+      fs.unlink(path.join(__dirname + '/../build/img/live', file), err => {
+        if (err) throw err;
+      });
+    }
+  });
+}
+
+module.exports = { removeImages, getImages };
