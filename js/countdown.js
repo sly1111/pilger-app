@@ -24,6 +24,9 @@ if(countDownDate < now) {
     let seconds = Math.floor((distance % (1000 * 60)) / 1000);
   
     // Display the result in the element with id="demo"
+    if (days < 10) {
+      days = '0' + days;
+    }
     if (hours < 10) {
       hours = '0' + hours;
     }
