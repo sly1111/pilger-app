@@ -24,7 +24,11 @@ cron.schedule('* * * * *', function(){
 cron.schedule('15 * * * *', function(){
   const data = async () => {
     let activities = await strava.getActivities();
-    return JSON.stringify(activities);
+    if(activities.length > 0) {
+      return JSON.stringify(activities);
+    } else {
+      return JSON.stringify([]);
+    }
   }
   data().then((activities) => {
     fs.writeFile('strava.json', activities);

@@ -1,41 +1,44 @@
 div(class="activities-container")
-    h1(class="activities-head") Etappen
-    each activity, index in stravaData
-        - var distance = Number((activity.distance/1000).toFixed(2)) + '';
-        - var elevation = Number((activity.total_elevation_gain).toFixed(0)) + '';
-        - var time = parseInt(activity.moving_time, 10);
-        - var hours   = Math.floor(time / 3600);
-        - var minutes = Math.floor((time - (hours * 3600)) / 60);
-        - if (minutes < 10) {minutes = "0"+minutes;}
-        - var tempo = (time) / parseInt(distance);
-        - var tempoMin = Math.floor(tempo / 60);
-        - var tempoSek = Math.floor(tempo - (tempoMin * 60));
-        - if (tempoSek < 10) {tempoSek = "0"+tempoSek;}
-        - distance = distance.replace('.', ',');
-        div(class="activity-single")
-            div(class="activity-title")=activity.name
-            a(href="#")
-                img(src="/img/route1.png", alt="route")
-            div(class="activity-info-container")
-                div(class="activity-box")
-                    div(class="activity-info") 
-                        i(class="fas fa-road activity-icon")
-                        div(class="activity-content")=distance
-                        div(class="activity-unit") km
-                div(class="activity-box")
-                    div(class="activity-info")
-                        i(class="fas fa-chart-area activity-icon")
-                        div(class="activity-content")=elevation
-                        div(class="activity-unit") m
-                div(class="activity-box")
-                    div(class="activity-info")
-                        i(class="fas fa-clock activity-icon")
-                        div(class="activity-content")=hours + ':' + minutes
-                        div(class="activity-unit") h
-                div(class="activity-box")
-                    div(class="activity-info")
-                        i(class="fas fa-tachometer-alt activity-icon")
-                        div(class="activity-content")=tempoMin + ':' + tempoSek
-                        div(class="activity-unit") min/km
-            div(class="activity-more")
-                a(href="https://www.strava.com/activities/" + activity.id target="blank") more &gt;
+    - var activityCount = stravaData.length;
+    if activityCount==0
+        h1(class="activities-head") Noch keine Aktivitäten vorhanden
+    else    
+        h1(class="activities-head") Etappen
+        each activity, index in stravaData
+            - var distance = Number((activity.distance/1000).toFixed(2)) + '';
+            - var elevation = Number((activity.total_elevation_gain).toFixed(0)) + '';
+            - var time = parseInt(activity.moving_time, 10);
+            - var hours   = Math.floor(time / 3600);
+            - var minutes = Math.floor((time - (hours * 3600)) / 60);
+            - if (minutes < 10) {minutes = "0"+minutes;}
+            - var tempo = (time) / parseInt(distance);
+            - var tempoMin = Math.floor(tempo / 60);
+            - var tempoSek = Math.floor(tempo - (tempoMin * 60));
+            - if (tempoSek < 10) {tempoSek = "0"+tempoSek;}
+            - distance = distance.replace('.', ',');
+            div(class="activity-single")
+                div(class="activity-title")=activity.name
+                div(id="route-"+index data-route=activity.map.summary_polyline class="activity-map")
+                div(class="activity-info-container")
+                    div(class="activity-box")
+                        div(class="activity-info") 
+                            i(class="fas fa-road activity-icon")
+                            div(class="activity-content")=distance
+                            div(class="activity-unit") km
+                    div(class="activity-box")
+                        div(class="activity-info")
+                            i(class="fas fa-chart-area activity-icon")
+                            div(class="activity-content")=elevation
+                            div(class="activity-unit") m
+                    div(class="activity-box")
+                        div(class="activity-info")
+                            i(class="fas fa-clock activity-icon")
+                            div(class="activity-content")=hours + ':' + minutes
+                            div(class="activity-unit") h
+                    div(class="activity-box")
+                        div(class="activity-info")
+                            i(class="fas fa-tachometer-alt activity-icon")
+                            div(class="activity-content")=tempoMin + ':' + tempoSek
+                            div(class="activity-unit") min/km
+                div(class="activity-more")
+                    a(href="https://www.strava.com/activities/" + activity.id target="blank") more &gt;
