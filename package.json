@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon app.js"
+    "dev": "nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -38,6 +38,7 @@
     "gulp-util": "^3.0.8",
     "mime-types": "^2.1.18",
     "nodemon": "^1.17.2",
-    "pug": "~2.0.0-beta11"
+    "pug": "~2.0.0-beta11",
+    "strava-v3": "^1.14.0"
   }
 }
