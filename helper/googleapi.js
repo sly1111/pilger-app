@@ -126,29 +126,39 @@ function listFiles(auth) {
       } else {
         for (let i = 0; i < files.length; i++) {
           let file = files[i];
-          console.log('write image %s (%s)', file.name, file.id);
-          let fileId = 'file.id';
-          let dest = fs.createWriteStream('build/img/live/' + file.name);
-          service.files.get(
-            {
-              fileId: file.id,
-              alt: 'media',
-              auth: auth
-            },
-            {
-              responseType: 'stream'
-            },
-            function(err, response) {
-              response.data
-                .on('error', err => {
-                  console.log('error');
-                })
-                .on('end', () => {
-                  console.log('done');
-                })
-                .pipe(dest);
+          fs.readdir(__dirname + '/../build/img/live', function(error, data){
+            if (error) {
+                res.status(500).send(error);
+                return;
             }
-          );
+            if(data.includes(file.name)) {
+              console.log('found image %s (%s)', file.name, file.id);    
+            } else {
+              console.log('write image %s (%s)', file.name, file.id);
+              let fileId = 'file.id';
+              let dest = fs.createWriteStream('build/img/live/' + file.name);
+              service.files.get(
+                {
+                  fileId: file.id,
+                  alt: 'media',
+                  auth: auth
+                },
+                {
+                  responseType: 'stream'
+                },
+                function(err, response) {
+                  response.data
+                    .on('error', err => {
+                      console.log('error');
+                    })
+                    .on('end', () => {
+                      console.log('done');
+                    })
+                    .pipe(dest);
+                }
+              );
+            }
+          });
         }
       }
     }
