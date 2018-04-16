@@ -21,7 +21,7 @@ cron.schedule('* * * * *', function(){
   google.getImages();
 });
 
-cron.schedule('15 * * * *', function(){
+cron.schedule('0,20,40 * * * *', function(){
   const data = async () => {
     let activities = await strava.getActivities();
     if(activities.length > 0) {

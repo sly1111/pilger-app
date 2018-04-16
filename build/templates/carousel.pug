@@ -1,5 +1,6 @@
 div(id="img-carousel" class="carousel slide" data-ride="carousel")    
     ol(class="carousel-indicators")
+        -files = files.slice(0, 5)
         each file, index in files
             - var first = index==0
             if first
