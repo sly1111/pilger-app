@@ -3,7 +3,8 @@ const path = require('path');
 const strava = require('../helper/stravaapi');
 
 async function getPage(res, page) {
-  let stravaJSON = fs.readFileSync(__dirname + '/../strava.json');
+  const stravaFileName = (page === "testHome")? "stravaTest.json" : "strava.json";
+  let stravaJSON = fs.readFileSync(__dirname + '/../'+ stravaFileName);
   const imgDir = (page === "testHome")? "test" : "live";
   stravaJSON = JSON.parse(stravaJSON);
   fs.readdir(__dirname + '/../build/img/'+imgDir, function(error, data){
