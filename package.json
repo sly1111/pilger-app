@@ -5,11 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon app.js"
+    "dev": "nodemon index.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://pilger-deployment-master@pilger-app.scm.azurewebsites.net:443/pilger-app.git"
+    "url": "https://github.com/sly1111/pilger-app"
   },
   "author": "",
   "license": "ISC",

@@ -9,7 +9,7 @@ const SCOPES = ['https://www.googleapis.com/auth/drive.readonly'];
 const TOKEN_DIR = path.resolve(__dirname) + '/../.credentials/';
 const TOKEN_PATH = TOKEN_DIR + 'drive-nodejs-quickstart.json';
 
-function getImages() {
+function getImages(isProd) {
   // Load client secrets from a local file.
   fs.readFile('client_secret.json', function processClientSecrets(
     err,
@@ -21,7 +21,7 @@ function getImages() {
     }
     // Authorize a client with the loaded credentials, then call the
     // Drive API.
-    authorize(JSON.parse(content), listFiles);
+    authorize(JSON.parse(content), listFiles, isProd);
   });
 }
 
@@ -32,7 +32,7 @@ function getImages() {
  * @param {Object} credentials The authorization client credentials.
  * @param {function} callback The callback to call with the authorized client.
  */
-function authorize(credentials, callback) {
+function authorize(credentials, callback, isProd) {
   const clientSecret = credentials.installed.client_secret;
   const clientId = credentials.installed.client_id;
   const redirectUrl = credentials.installed.redirect_uris[0];
@@ -46,7 +46,7 @@ function authorize(credentials, callback) {
       getNewToken(oauth2Client, callback);
     } else {
       oauth2Client.credentials = JSON.parse(token);
-      callback(oauth2Client);
+      callback(oauth2Client, isProd);
     }
   });
 }
@@ -105,14 +105,15 @@ function storeToken(token) {
  *
  * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
  */
-function listFiles(auth) {
+function listFiles(auth, isProd) {
   const service = google.drive('v3');
+  const environment = (isProd)? 'live' : 'test';
   service.files.list(
     {
       auth: auth,
       pageSize: 1,
       orderBy: 'createdTime desc',
-      q: "mimeType='image/jpeg' and name contains 'public'",
+      q: 'mimeType="image/jpeg" and name contains "' + environment + '"',
       fields: 'nextPageToken, files(id, name)'
     },
     function(err, response) {
@@ -122,21 +123,21 @@ function listFiles(auth) {
       }
       const files = response.data.files;
       if (files.length == 0) {
-        console.log('No files found.');
+        console.log('No files found in ' + environment + '.');
       } else {
         for (let i = 0; i < files.length; i++) {
           let file = files[i];
-          fs.readdir(__dirname + '/../build/img/live', function(error, data){
+          fs.readdir(__dirname + '/../build/img/' + environment, function(error, data){
             if (error) {
                 res.status(500).send(error);
                 return;
             }
             if(data.includes(file.name)) {
-              console.log('found image %s (%s)', file.name, file.id);    
+              console.log('found image %s (%s) in ' + environment , file.name, file.id);    
             } else {
-              console.log('write image %s (%s)', file.name, file.id);
+              console.log('write image %s (%s) in ' + environment, file.name, file.id);
               let fileId = 'file.id';
-              let dest = fs.createWriteStream('build/img/live/' + file.name);
+              let dest = fs.createWriteStream('build/img/' + environment + '/' + file.name);
               service.files.get(
                 {
                   fileId: file.id,
@@ -165,12 +166,13 @@ function listFiles(auth) {
   );
 }
 
-function removeImages() { 
-  fs.readdir(__dirname + '/../build/img/live', (err, files) => {
+function removeImages(isProd) {
+  const environment = (isProd)? 'live' : 'test'; 
+  fs.readdir(__dirname + '/../build/img/' + environment + '/', (err, files) => {
     if (err) throw err;
   
     for (const file of files) {
-      fs.unlink(path.join(__dirname + '/../build/img/live', file), err => {
+      fs.unlink(path.join(__dirname + '/../build/img/' + environment + '/', file), err => {
         if (err) throw err;
       });
     }
