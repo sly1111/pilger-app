@@ -16,6 +16,11 @@ link(rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/font
 link(href="https://fonts.googleapis.com/css?family=Slabo+27px" rel="stylesheet")
 head
     <!-- Global site tag (gtag.js) - Google Analytics -->
+    script.
+        var testCountdown = false;
+    if page == "testHome"
+        script.
+            var testCountdown = true;
     script(async src="https://www.googletagmanager.com/gtag/js?id=UA-113521654-1")
     script.
         window.dataLayer = window.dataLayer || [];
