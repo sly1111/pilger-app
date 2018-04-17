@@ -9,13 +9,14 @@ div(id="img-carousel" class="carousel slide" data-ride="carousel")
                 li(data-target="#img-carousel" data-slide-to=index)
     each file, index in files
         - var first = index==0
+        - var imgDir = (page === "testHome")? "test" : "live"
         if first
             div(class="carousel-item active")
-                img(src="/img/live/"+file alt="placeholder")
+                img(src="/img/"+imgDir+"/"+file alt="placeholder")
                 div(class="carousel-caption d-none d-md-block")
         else
             div(class="carousel-item")
-                img(src="/img/live/"+file alt="placeholder")
+                img(src="/img/"+imgDir+"/"+file alt="placeholder")
                 div(class="carousel-caption d-none d-md-block")
     a(class="carousel-control-prev" href="#img-carousel" role="button" data-slide="prev")
         span(class="carousel-control-prev-icon" aria-hidden="true")

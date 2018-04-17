@@ -11,9 +11,7 @@ html(lang="en")
     div(class="main-page")
       if page == "gallery"
         include gallery
-      else if page == "home"
+      else if page == "home" || page == "testHome"
         include carousel
         include activities
-      else if page == "map"
-        include map
   include footer
