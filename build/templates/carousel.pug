@@ -1,3 +1,5 @@
+- var imgDir = (page === "testHome")? "test" : "live"
+- var galleryLink = (page === "testHome")? "/testGallery9134" : "/gallery"
 div(id="img-carousel" class="carousel slide" data-ride="carousel")    
     ol(class="carousel-indicators")
         -files = files.slice(0, 5)
@@ -9,7 +11,6 @@ div(id="img-carousel" class="carousel slide" data-ride="carousel")
                 li(data-target="#img-carousel" data-slide-to=index)
     each file, index in files
         - var first = index==0
-        - var imgDir = (page === "testHome")? "test" : "live"
         if first
             div(class="carousel-item active")
                 img(src="/img/"+imgDir+"/"+file alt="placeholder")
@@ -24,4 +25,4 @@ div(id="img-carousel" class="carousel slide" data-ride="carousel")
     a(class="carousel-control-next" href="#img-carousel" role="button" data-slide="next")
         span(class="carousel-control-next-icon" aria-hidden="true")
         span(class="sr-only") Next
-a(class="link carousel-link" href="/gallery") zur Galerie
+a(class="link carousel-link" href=galleryLink) zur Galerie

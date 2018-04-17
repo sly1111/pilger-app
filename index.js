@@ -13,6 +13,7 @@ app.set('view engine', 'pug');
 app.use(express.static('build'));
 app.get('/', (req, res) => render.getPage(res, 'home'));
 app.get('/test9134', (req, res) => render.getPage(res, 'testHome'));
+app.get('/testGallery9134', (req, res) => render.getPage(res, 'testGallery'));
 app.get('/gallery', (req, res) => render.getPage(res, 'gallery'));
 app.get('/s4wFG0bQmRvQREvb1PUW', (req, res) => {
   google.removeImages(true);

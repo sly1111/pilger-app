@@ -1,6 +1,5 @@
 // Set the date we're counting down to
 const countDownDate = (testCountdown)? new Date('Apr 1, 2018 15:40:00').getTime() : new Date('Apr 21, 2018 11:50:00').getTime();
-// const countDownDate = new Date('Apr 21, 2018 11:50:00').getTime();
 const now = new Date();
 
 // Update the count down every 1 second

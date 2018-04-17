@@ -5,7 +5,7 @@ const strava = require('../helper/stravaapi');
 async function getPage(res, page) {
   const stravaFileName = (page === "testHome")? "stravaTest.json" : "strava.json";
   let stravaJSON = fs.readFileSync(__dirname + '/../'+ stravaFileName);
-  const imgDir = (page === "testHome")? "test" : "live";
+  const imgDir = (page === "testHome" || page === "testGallery")? "test" : "live";
   stravaJSON = JSON.parse(stravaJSON);
   fs.readdir(__dirname + '/../build/img/'+imgDir, function(error, data){
     if (error) {
