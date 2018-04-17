@@ -1,7 +1,8 @@
+- var imgDir = (page === "testGallery")? "test" : "live"
 div(class="gallery-container")
     each file, index in files
         div(class='gallery-img')
-            img(src="/img/live/"+file alt="placeholder" data-toggle="modal" data-target="#"+file)
+            img(src="/img/"+imgDir+"/"+file alt="placeholder" data-toggle="modal" data-target="#"+file)
 
 <!-- Modal -->
 each file, index in files
@@ -9,4 +10,4 @@ each file, index in files
         div(class="modal-dialog" role="document")
             div(class="modal-content")
                 div(class="modal-body")
-                    img(src="/img/live/"+file alt="placeholder" class="gallery-modal-img")
+                    img(src="/img/"+imgDir+"/"+file alt="placeholder" class="gallery-modal-img")
