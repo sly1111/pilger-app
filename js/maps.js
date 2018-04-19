@@ -2,7 +2,7 @@ function drawMap(id ,encode) {
   var decode = decodePolyline(encode)
   var pathMid = Math.floor(decode.length / 2);
   var map = new google.maps.Map(document.getElementById(id), {
-    zoom: 12,
+    zoom: 10,
     center: decode[pathMid],
     mapTypeId: 'terrain'
   });
