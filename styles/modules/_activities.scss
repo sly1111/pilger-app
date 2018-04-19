@@ -15,6 +15,10 @@
 .activity-title {
     margin-top: 5px;
     font-size: 30px;
+    @media (max-width: 425px) {
+        font-size: 30px;
+        margin: 5px 0 8px 20px;
+    }
 }
 
 .activity-single {
@@ -51,10 +55,17 @@
 
 .activity-icon {
     font-size: 25px;
+    @media (max-width: 425px) {
+        font-size: 18px;
+    }
 }
 
 .activity-content {
     font-size: 35px;
+    @media (max-width: 425px) {
+        font-size: 24px;
+        margin: -6px 0;
+    }
 }
 
 .activity-more {
