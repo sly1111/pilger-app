@@ -127,9 +127,12 @@ function listFiles(auth, isProd) {
       } else {
         for (let i = 0; i < files.length; i++) {
           let file = files[i];
-          fs.readdir(__dirname + '/../build/img/' + environment, function(error, data){
+          if (!fs.existsSync(__dirname + '/../build/img/' + environment)){
+            fs.mkdirSync(__dirname + '/../build/img/' + environment);
+          }
+          fs.readdir(__dirname + '/../build/img/' + environment, function(error, data, response){
             if (error) {
-                // response.status(500).send(error);
+                response.status(500).send(error);
                 return;
             }
             if(data.includes(file.name)) {
