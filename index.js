@@ -27,7 +27,7 @@ app.listen(app.get('port'), () => console.log(`Listening on ${ app.get('port') }
   google.getImages(false);
 });*/
 
-cron.schedule('0,20,40 * * * *', function(){
+/*cron.schedule('0,20,40 * * * *', function(){
   const data = async () => {
     let activities = await strava.getActivities(true);
     if(activities.length > 0) {
@@ -52,4 +52,4 @@ cron.schedule('0,20,40 * * * *', function(){
     fs.writeFile('stravaTest.json', testActivities);
     console.log('write Strava Test Activities');
   })
-});
+});*/
