@@ -127,10 +127,18 @@ function listFiles(auth, isProd) {
       } else {
         for (let i = 0; i < files.length; i++) {
           let file = files[i];
-          fs.readdir(__dirname + '/../build/img/' + environment, function(error, data){
+          if (!fs.existsSync(__dirname + '/../build/img/' + environment)){
+            fs.mkdirSync(__dirname + '/../build/img/' + environment);
+          }
+          fs.readdir(__dirname + '/../build/img/' + environment, function(error, data, response){
             if (error) {
+<<<<<<< HEAD
               res.status(500).send(error);
               return;
+=======
+                response.status(500).send(error);
+                return;
+>>>>>>> bc307ea532d053242f85021ed06907a06c2d3036
             }
             if(data.includes(file.name)) {
               console.log('found image %s (%s) in ' + environment , file.name, file.id);    
