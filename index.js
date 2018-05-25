@@ -22,10 +22,10 @@ app.get('/s4wFG0bQmRvQREvb1PUW', (req, res) => {
 app.set('port', process.env.PORT || 8080);
 app.listen(app.get('port'), () => console.log(`Listening on ${ app.get('port') }`));
 
-cron.schedule('20 * * * * *', function(){
+/*cron.schedule('20 * * * * *', function(){
   google.getImages(true);
   google.getImages(false);
-});
+});*/
 
 cron.schedule('0,20,40 * * * *', function(){
   const data = async () => {

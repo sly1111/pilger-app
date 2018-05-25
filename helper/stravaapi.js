@@ -5,7 +5,7 @@ function getActivities (isProd){
         const timestamp = (isProd)? '1524268801' : '1514761200'
         const opts = { 
             'after': timestamp, // {Integer} An epoch timestamp to use for filtering activities that have taken place after a certain time.
-            'perPage': 32 // {Integer} Number of items per page. Defaults to 30.
+            'per_page': 32 // {Integer} Number of items per page. Defaults to 30.
         };
         const callback = function(err, data, response) {
             if (!err) {
